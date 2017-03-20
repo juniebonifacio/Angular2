@@ -1,17 +1,17 @@
-grocery-buddy-service/target
-grocery-buddy-service/target/*
-angular2-seed/node_modules
-angular2-seed/node_modules/*
-grocery-buddy-service/.settings
-grocery-buddy-service/.settings/*
-angular2-seed/app/.DS_Store
-grocery-buddy-service/.DS_Store
-grocery-buddy-service/.settings/
-grocery-buddy-service/.settings/*
+grocery-buddy/grocery-buddy-service/target
+grocery-buddy/grocery-buddy-service/target/*
+grocery-buddy/angular2-seed/node_modules
+grocery-buddy/angular2-seed/node_modules/*
+grocery-buddy/grocery-buddy-service/.settings
+grocery-buddy/grocery-buddy-service/.settings/*
+grocery-buddy/angular2-seed/app/.DS_Store
+grocery-buddy/grocery-buddy-service/.DS_Store
+grocery-buddy/grocery-buddy-service/.settings/
+grocery-buddy/grocery-buddy-service/.settings/*
 
-angular2-seed/app/*.js
-angular2-seed/app/*.js.map
-angular2-seed/.DS_Store
+grocery-buddy/angular2-seed/app/*.js
+grocery-buddy/angular2-seed/app/*.js.map
+grocery-buddy/angular2-seed/.DS_Store
 
-grocery-buddy-service/.classpath
-grocery-buddy-service/.project
+grocery-buddy/grocery-buddy-service/.classpath
+grocery-buddy/grocery-buddy-service/.project
