@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:batch="http://www.springframework.org/schema/batch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch
+		http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	">
+
+	<import resource="../config/test-context.xml" />
+	<import resource="../../../util/example-db-config.xml" />
+	<import resource="classpath:dao/dao-bean-config.xml" />
+
+	<bean id="report" class="com.domain.Report" scope="prototype" />
+	
+	<bean id="itemProcessor" class="com.batch.ReportItemProcessor" />
+	<bean id="itemChecker" class="com.batch.ReportItemChecker" />
+
+	<batch:job id="updateReportsJob">
+		<batch:step id="processReports" next="checkReports">
+			<batch:tasklet>
+				<batch:chunk reader="hibernateItemReader" writer="hibernateItemWriter" processor="itemProcessor"
+					commit-interval="10"/>
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="checkReports">
+			<batch:tasklet >
+				<batch:chunk reader="hibernateItemReader" writer="hibernateItemWriter" processor="itemChecker"
+					commit-interval="10"/>
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+
+	<bean id="hibernateItemReader"
+	      class="org.springframework.batch.item.database.HibernateCursorItemReader">
+	    <property name="sessionFactory" ref="sessionFactory" />
+	    <property name="queryString" value="from ReportHibernateObj" />
+	</bean>
+	
+	<bean id="hibernateItemWriter" 
+		  class="com.batch.ReportDataWriter">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+
+	
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.batch.quartz.JobLauncherDetails" />
+		<property name="group" value="quartz-batch" />
+		<property name="jobDataAsMap">
+		  <map>
+			<entry key="jobName" value="updateReportsJob" />
+			<entry key="jobLocator" value-ref="jobRegistry" />
+			<entry key="jobLauncher" value-ref="jobLauncher" />
+		  </map>
+		</property>
+  	</bean>
+  		
+
+</beans>
